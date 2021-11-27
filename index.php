@@ -71,7 +71,7 @@ $proxy = array(
 
 $Rev = http_request("https://api.hackertarget.com/reverseiplookup/?q=".$ip."");
 
-echo $Rev;
+echo ".$Rev."\n";
 
 endif;
 ?>
