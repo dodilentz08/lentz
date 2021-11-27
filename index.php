@@ -1,7 +1,6 @@
 <?php
 if (isset($_GET['ip'])):
             $ip = ($_GET['ip']);
-            
 function http_request($url){
 $proxy = array(
 '103.54.43.131:8080',
@@ -72,7 +71,6 @@ $proxy = array(
 $Rev = http_request("https://api.hackertarget.com/reverseiplookup/?q=".$ip."");
 
 echo $Rev;
-echo "\n";
 
 endif;
 ?>
