@@ -1,62 +1,27 @@
 <?php
-if (isset($_GET['ip'])):
-            $ip = ($_GET['ip']);
+if (isset($_GET['q'])):
+            $q = ($_GET['q']);
+            
 function http_request($url){
-$proxy = array(
-'103.54.43.131:8080',
-'101.99.95.54:80',
-'103.56.208.89:8080',
-'103.60.173.114:8080',
-'159.146.126.132:8080',
-'185.119.212.118:8080',
-'159.146.126.143:8080',
-'159.146.126.146:8080',
-'159.146.126.150:8080',
-'91.202.230.219:8080',
-'159.146.126.153:8080',
-'159.146.126.139:8080',
-'159.146.126.154:8080',
-'159.146.126.144:8080',
-'159.146.126.131:8080',
-'159.146.126.137:8080',
-'159.146.126.149:8080',
-'190.115.219.78:8080',
-'159.146.126.157:8080',
-'88.198.50.103:8080',
-'190.12.57.46:8080',
-'5.160.84.61:8080',
-'159.146.126.133:8080',
-'45.77.124.153:8080',
-'183.88.85.43:8080',
-'159.146.126.148:8080',
-'159.146.126.141:8080',
-'171.5.28.11:8080',
-'41.229.253.214:8080',
-'171.5.92.69:8080',
-'68.188.59.198:80',
-'3.130.83.49:80',
-'50.206.25.107:80',
-'45.199.148.2:80',
-'209.141.56.127:80',
-'199.19.226.12:80',
-'34.145.126.174:80',
-'77.73.241.154:80',
-'206.253.164.198:80',
-'45.199.148.4:80',
-'68.185.57.66:80',
-'192.243.214.105:80',
-'45.32.76.232:80',
-'209.141.35.151:80',
-'206.253.164.146:80',
-'206.253.164.120:80',
-'199.19.224.3:80');
+$userAgent = array(
+'Mozilla/5.0 (X11; Linux i686) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.52 Safari/536.5',
+'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11',
+'Opera/9.25 (Windows NT 5.1; U; en)',
+'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)',
+'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Kubuntu)',
+'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.12) Gecko/20070731 Ubuntu/dapper-security Firefox/1.5.0.12',
+'Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:50',
+'Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; en) AppleWebKit/534.1+ (KHTML, like Gecko) Version/6.0.0.337 Mobile Safari/534.1+2011-10-16 20:21:10');
     // persiapkan curl
     $ch = curl_init(); 
+
+    // set url 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_PROXY, $proxy[array_rand($proxy)]);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HEADER, false);
+    // set user agent    
+    curl_setopt($ch, CURLOPT_USERAGENT, $userAgent[array_rand($userAgent)]);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    // return the transfer as a string 
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
     // $output contains the output string 
     $output = curl_exec($ch); 
@@ -68,9 +33,14 @@ $proxy = array(
     return $output;
 }
 
-$Rev = http_request("https://api.hackertarget.com/reverseiplookup/?q=".$ip."");
+$Rev = http_request("https://sonar.omnisint.io/reverse/$q");
 
-echo $Rev;
+$Revi = json_decode($Rev, true);
 
+foreach($Revi as $Revip){
+
+echo "\n".$Revip."\n";
+
+}
 endif;
 ?>
