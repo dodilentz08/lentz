@@ -39,7 +39,7 @@ $Revi = json_decode($Rev, true);
 
 foreach($Revi as $Revip){
 
-echo "\n".$Revip."\n";
+echo "".$Revip."\n";
 
 }
 endif;
